@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Symbol:</strong>
+  <%= @cryptolist.symbol %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @cryptolist.user_id %>
+</p>
+
+<p>
+  <strong>Cost per:</strong>
+  <%= @cryptolist.cost_per %>
+</p>
+
+<p>
+  <strong>Amount owned:</strong>
+  <%= @cryptolist.amount_owned %>
+</p>
+
+<%= link_to 'Edit', edit_cryptolist_path(@cryptolist) %> |
+<%= link_to 'Back', cryptolists_path %>

@@ -1,0 +1,2 @@
+class Cryptolist < ApplicationRecord
+end
