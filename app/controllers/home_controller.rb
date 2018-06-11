@@ -14,4 +14,15 @@ class HomeController < ApplicationController
   def about
 
   end
+
+  def lookup
+    @symbol = params[:sym]
+    if @symbol
+      @symbol = @symbol.upcase
+    end
+
+    if @symbol == ""
+      @symbol = "Hey You Forgat To Enter a Currency"
+    end
+  end
 end
