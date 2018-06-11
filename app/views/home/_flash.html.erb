@@ -1,0 +1,8 @@
+<% flash.each do |name, msg| %>
+  <div class="alert alert-warning alert-dismissible">
+    <button type="close" data-dismiss="alert">
+      <i class="glyphicon glyphicon-remove-cricle"></i>
+    </button>
+    <%= content_tag(:div, msg) %>
+  </div>
+<% end %>
