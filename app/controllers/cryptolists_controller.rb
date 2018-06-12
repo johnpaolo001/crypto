@@ -1,6 +1,7 @@
 class CryptolistsController < ApplicationController
   before_action :set_cryptolist, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
 
   # GET /cryptolists
   # GET /cryptolists.json
@@ -71,5 +72,10 @@ class CryptolistsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def cryptolist_params
       params.require(:cryptolist).permit(:symbol, :user_id, :cost_per, :amount_owned)
+    end
+
+    def correct_user
+      @correct = current_user.cryptolists.find_by(id: params[:id])
+      redirect_to cryptolists_path, notice: "Not Authorized to edit this entry" if @correct.nil?
     end
 end
