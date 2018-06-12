@@ -1,10 +1,11 @@
 <h1>Cryptolists</h1>
 
-<table>
+<table class= "table table-striped">
+  <br>
   <thead>
     <tr>
+      <th>Name</th>
       <th>Symbol</th>
-      <th>User</th>
       <th>Cost per</th>
       <th>Amount owned</th>
       <th colspan="3"></th>
@@ -14,20 +15,27 @@
   <tbody>
     <% @cryptolists.each do |cryptolist| %>
       <% if cryptolist.user_id == current_user.id %>
+        <% if cryptolist.symbol %>
+          <% cryptolist.symbol = cryptolist.symbol.upcase %>
+        <% end %>
         <tr>
+          <% for x in @lookup_crypto %>
+            <% if cryptolist.symbol == x["symbol"] %>
+              <td><%= x["name"] %></td>
+            <% end %>
+          <% end %>
           <td><%= cryptolist.symbol %></td>
-          <td><%= cryptolist.user_id %></td>
           <td><%= cryptolist.cost_per %></td>
           <td><%= cryptolist.amount_owned %></td>
           <td><%= link_to 'Show', cryptolist %></td>
           <td><%= link_to 'Edit', edit_cryptolist_path(cryptolist) %></td>
           <td><%= link_to 'Destroy', cryptolist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
-      <% end %>  
+      <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Cryptolist', new_cryptolist_path %>
+<%= link_to 'New Cryptolist', new_cryptolist_path, class: "btn btn-default" %>
