@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Cryptolists</h1>
 
 <table>
@@ -15,15 +13,17 @@
 
   <tbody>
     <% @cryptolists.each do |cryptolist| %>
-      <tr>
-        <td><%= cryptolist.symbol %></td>
-        <td><%= cryptolist.user_id %></td>
-        <td><%= cryptolist.cost_per %></td>
-        <td><%= cryptolist.amount_owned %></td>
-        <td><%= link_to 'Show', cryptolist %></td>
-        <td><%= link_to 'Edit', edit_cryptolist_path(cryptolist) %></td>
-        <td><%= link_to 'Destroy', cryptolist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <% if cryptolist.user_id == current_user.id %>
+        <tr>
+          <td><%= cryptolist.symbol %></td>
+          <td><%= cryptolist.user_id %></td>
+          <td><%= cryptolist.cost_per %></td>
+          <td><%= cryptolist.amount_owned %></td>
+          <td><%= link_to 'Show', cryptolist %></td>
+          <td><%= link_to 'Edit', edit_cryptolist_path(cryptolist) %></td>
+          <td><%= link_to 'Destroy', cryptolist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>  
     <% end %>
   </tbody>
 </table>
