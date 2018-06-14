@@ -5,10 +5,16 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Symbol</th>
-      <th>Cost per</th>
+      <th>Current Price</th>
+      <th>Rank</th>
+      <th>1 HR %</th>
+      <th>24 HR %</th>
+      <th>7 Day %</th>
+      <th>Current Value</th>
+      <th>Total Paid</th>
+      <th>Profit/Lost</th>
+      <th>Cost Paid Per</th>
       <th>Amount owned</th>
-      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -21,15 +27,22 @@
         <tr>
           <% for x in @lookup_crypto %>
             <% if cryptolist.symbol == x["symbol"] %>
-              <td><%= x["name"] %></td>
+              <td><%= link_to x["name"], cryptolist  %></td>
+              <td>$<%= x["price_usd"] %></td>
+              <td><%= x["rank"] %></td>
+
+              <td><%= x["percent_change_1h"] %>%</td>
+              <td><%= x["percent_change_24h"] %>%</td>
+              <td><%= x["percent_change_7d"] %>%</td>
+
+              <td>$<%= x["price_usd"].to_d * cryptolist.amount_owned %></td>
+              <td>$<%= cryptolist.cost_per * cryptolist.amount_owned %></td>
+              <td>$<%= (x["price_usd"].to_d * cryptolist.amount_owned) - (cryptolist.cost_per * cryptolist.amount_owned) %></td>
+              <% @profit_loss += (x["price_usd"].to_d * cryptolist.amount_owned) - (cryptolist.cost_per * cryptolist.amount_owned) %>
             <% end %>
           <% end %>
-          <td><%= cryptolist.symbol %></td>
-          <td><%= cryptolist.cost_per %></td>
+          <td>$<%= cryptolist.cost_per %></td>
           <td><%= cryptolist.amount_owned %></td>
-          <td><%= link_to 'Show', cryptolist %></td>
-          <td><%= link_to 'Edit', edit_cryptolist_path(cryptolist) %></td>
-          <td><%= link_to 'Destroy', cryptolist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     <% end %>
@@ -37,5 +50,9 @@
 </table>
 
 <br>
+
+<strong>Protfolio Profit/Loss: </strong> <%= number_to_currency(@profit_loss) %>
+
+<br><br>
 
 <%= link_to 'New Cryptolist', new_cryptolist_path, class: "btn btn-default" %>

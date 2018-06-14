@@ -7,16 +7,25 @@ class CryptolistsController < ApplicationController
   # GET /cryptolists.json
   def index
     @cryptolists = Cryptolist.all
-
+    require 'net/http'
+    require 'json'
     @url = 'https://api.coinmarketcap.com/v1/ticker/'
     @uri = URI(@url)
     @response = Net::HTTP.get(@uri)
     @lookup_crypto = JSON.parse(@response)
+    @profit_loss = 0
   end
 
   # GET /cryptolists/1
   # GET /cryptolists/1.json
   def show
+    @cryptolists = Cryptolist.all
+    require 'net/http'
+    require 'json'
+    @url = 'https://api.coinmarketcap.com/v1/ticker/'
+    @uri = URI(@url)
+    @response = Net::HTTP.get(@uri)
+    @show_crypto = JSON.parse(@response)
   end
 
   # GET /cryptolists/new
